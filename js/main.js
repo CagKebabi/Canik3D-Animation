@@ -21,6 +21,11 @@ let mouseY = window.innerHeight / 2;
 
 //Keep the 3D object on a global variable so we can access it later
 let object;
+let canik;
+let slide_low;
+let opticcut_low;
+let rear_sight_low;
+let indicator_low;
 
 //OrbitControls allow the camera to move around the scene
 let controls;
@@ -37,8 +42,20 @@ loader.load(
   function (gltf) {
     //If the file is loaded, add it to the scene
     object = gltf.scene;
+    canik = object.children[0].children[0].children[0].children;
+    slide_low = canik[15];
+    opticcut_low = canik[16];
+    rear_sight_low = canik[17];
+    indicator_low = canik[18];
     scene.add(object);
-    console.log(object.children[0].children[0].children[0].children);
+    slide_low.position.x = 0;
+    document.addEventListener("keydown", function (e) {
+      /* Change to keyCode */
+      if (e.keyCode == 83) {
+        gsap.to(slide_low.position, { x: 30, yoyo: true, repeat: 1 });
+      }
+    });
+    //console.log(slide_low.scale.x);
   },
   function (xhr) {
     //While it is loading, log the progress
