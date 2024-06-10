@@ -97,6 +97,7 @@ loader.load(
         gsap.fromTo(object.rotation, { z: 0, yoyo: true, repeat: 1 }, {z: -0.15, yoyo: true, repeat: 1, duration: 0.15});
         gsap.fromTo(bulletParts.rotation, { x: 0, yoyo: true, repeat: 1 }, {x:-0.15, yoyo: true, repeat: 1, duration: 0.15});
         gsap.fromTo(bulletCase.position, { x: -5.650801371896957e-16, y: 0.01853053644299507}, {x:-85, y:15 , duration: 0.15});
+        gsap.fromTo(bulletProjectile.position, { z: 2.2435128688812256}, {z:140, duration: 0.15});
         //gsap.fromTo(bulletProjectile.position, { z: 2.2435128688812256, yoyo: true, repeat: 1 }, {z: 140, yoyo: true, repeat: 1, duration: 0.08});
         // gsap.timeline()
         //   .to(bulletProjectile.position, {z: 140})
