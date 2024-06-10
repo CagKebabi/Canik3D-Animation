@@ -40,8 +40,13 @@ let objToRender = "canik";
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
 
-//Load the file
+//Play Audio
+function play() {
+  var audio = new Audio("/gunshot.mp3");
+  audio.play();
+}
 
+//Load the file
 //BULLET
 loader.load(
   `models/bullet/scene.gltf`,
@@ -53,14 +58,14 @@ loader.load(
     scene.add(bullet);
     // bullet.position.z = 0.2
     // bullet.position.y = 0.5
-    bullet.scale.x = 0.05
-    bullet.scale.y = 0.05
-    bullet.scale.z = 0.05
-    bullet.rotation.z = 0.05
-    bullet.rotation.y = 2.7
-    bulletParts.position.x = 0.5
-    bulletParts.position.y = 11.3
-    bulletParts.position.z = -8
+    bullet.scale.x = 0.05;
+    bullet.scale.y = 0.05;
+    bullet.scale.z = 0.05;
+    bullet.rotation.z = 0.05;
+    bullet.rotation.y = 2.7;
+    bulletParts.position.x = 0.5;
+    bulletParts.position.y = 11.3;
+    bulletParts.position.z = -8;
     console.log(bulletProjectile);
   },
   function (xhr) {
@@ -71,7 +76,7 @@ loader.load(
     //If there is an error, log it
     console.error(error);
   }
-)
+);
 
 //CANIK
 loader.load(
@@ -85,19 +90,57 @@ loader.load(
     rear_sight_low = canik[17];
     indicator_low = canik[18];
     scene.add(object);
-    object.rotation.y = -2
+    object.rotation.y = -2;
     //slide_low.position.x = 0;
     document.addEventListener("keydown", function (e) {
       /* Change to keyCode */
       if (e.keyCode == 83) {
-        gsap.fromTo(slide_low.position, { x: 0, yoyo: true, repeat: 1 }, {x: 30, yoyo: true, repeat: 1, duration: 0.15});
-        gsap.fromTo(opticcut_low.position, { x: 0, yoyo: true, repeat: 1 }, {x: 30, yoyo: true, repeat: 1, duration: 0.15});
-        gsap.fromTo(rear_sight_low.position, { x: 80, yoyo: true, repeat: 1 }, {x: 110, yoyo: true, repeat: 1, duration: 0.15});
-        gsap.fromTo(indicator_low.position, { x: 100, yoyo: true, repeat: 1 }, {x: 130, yoyo: true, repeat: 1, duration: 0.15});
-        gsap.fromTo(object.rotation, { z: 0, yoyo: true, repeat: 1 }, {z: -0.15, yoyo: true, repeat: 1, duration: 0.15});
-        gsap.fromTo(bulletParts.rotation, { x: 0, yoyo: true, repeat: 1 }, {x:-0.15, yoyo: true, repeat: 1, duration: 0.15});
-        gsap.fromTo(bulletCase.position, { x: -5.650801371896957e-16, y: 0.01853053644299507}, {x:-85, y:15 , duration: 0.15});
-        gsap.fromTo(bulletProjectile.position, { z: 2.2435128688812256}, {z:140, duration: 0.15});
+        play();
+        gsap.fromTo(
+          slide_low.position,
+          { x: 0, yoyo: true, repeat: 1 },
+          { x: 30, yoyo: true, repeat: 1, duration: 0.1 }
+        );
+        gsap.fromTo(
+          opticcut_low.position,
+          { x: 0, yoyo: true, repeat: 1 },
+          { x: 30, yoyo: true, repeat: 1, duration: 0.1 }
+        );
+        gsap.fromTo(
+          rear_sight_low.position,
+          { x: 80, yoyo: true, repeat: 1 },
+          { x: 110, yoyo: true, repeat: 1, duration: 0.1 }
+        );
+        gsap.fromTo(
+          indicator_low.position,
+          { x: 100, yoyo: true, repeat: 1 },
+          { x: 130, yoyo: true, repeat: 1, duration: 0.1 }
+        );
+        gsap.fromTo(
+          object.rotation,
+          { z: 0, yoyo: true, repeat: 1 },
+          { z: -0.15, yoyo: true, repeat: 1, duration: 0.1 }
+        );
+        gsap.fromTo(
+          ".fireLight",
+          { opacity: 0, repeat: 1 },
+          { opacity: 1, yoyo: true, repeat: 1, duration: 0.05 }
+        );
+        gsap.fromTo(
+          bulletParts.rotation,
+          { x: 0, yoyo: true, repeat: 1 },
+          { x: -0.15, yoyo: true, repeat: 1, duration: 0.1 }
+        );
+        gsap.fromTo(
+          bulletCase.position,
+          { x: -5.650801371896957e-16, y: 0.01853053644299507 },
+          { x: -185, y: 45, duration: 0.9 }
+        );
+        gsap.fromTo(
+          bulletProjectile.position,
+          { z: 2.2435128688812256 },
+          { z: 540, duration: 0.1 }
+        );
         //gsap.fromTo(bulletProjectile.position, { z: 2.2435128688812256, yoyo: true, repeat: 1 }, {z: 140, yoyo: true, repeat: 1, duration: 0.08});
         // gsap.timeline()
         //   .to(bulletProjectile.position, {z: 140})
