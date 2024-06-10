@@ -9,7 +9,7 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/l
 const scene = new THREE.Scene();
 //create a new camera with positions and angles
 const camera = new THREE.PerspectiveCamera(
-  75,
+  8,
   window.innerWidth / window.innerHeight,
   0.1,
   1000
@@ -21,6 +21,10 @@ let mouseY = window.innerHeight / 2;
 
 //Keep the 3D object on a global variable so we can access it later
 let object;
+let bullet;
+let bulletProjectile;
+let bulletCase;
+let bulletParts;
 let canik;
 let slide_low;
 let opticcut_low;
@@ -37,6 +41,39 @@ let objToRender = "canik";
 const loader = new GLTFLoader();
 
 //Load the file
+
+//BULLET
+loader.load(
+  `models/bullet/scene.gltf`,
+  function (gltf) {
+    bullet = gltf.scene;
+    bulletParts = bullet.children[0].children[0].children[0];
+    bulletProjectile = bullet.children[0].children[0].children[0].children[1];
+    bulletCase = bullet.children[0].children[0].children[0].children[0];
+    scene.add(bullet);
+    // bullet.position.z = 0.2
+    // bullet.position.y = 0.5
+    bullet.scale.x = 0.05
+    bullet.scale.y = 0.05
+    bullet.scale.z = 0.05
+    bullet.rotation.z = 0.05
+    bullet.rotation.y = 2.7
+    bulletParts.position.x = 0.5
+    bulletParts.position.y = 11.3
+    bulletParts.position.z = -8
+    console.log(bulletProjectile);
+  },
+  function (xhr) {
+    //While it is loading, log the progress
+    console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+  },
+  function (error) {
+    //If there is an error, log it
+    console.error(error);
+  }
+)
+
+//CANIK
 loader.load(
   `models/${objToRender}/scene.gltf`,
   function (gltf) {
@@ -48,11 +85,24 @@ loader.load(
     rear_sight_low = canik[17];
     indicator_low = canik[18];
     scene.add(object);
-    slide_low.position.x = 0;
+    object.rotation.y = -2
+    //slide_low.position.x = 0;
     document.addEventListener("keydown", function (e) {
       /* Change to keyCode */
       if (e.keyCode == 83) {
-        gsap.to(slide_low.position, { x: 30, yoyo: true, repeat: 1 });
+        gsap.fromTo(slide_low.position, { x: 0, yoyo: true, repeat: 1 }, {x: 30, yoyo: true, repeat: 1, duration: 0.15});
+        gsap.fromTo(opticcut_low.position, { x: 0, yoyo: true, repeat: 1 }, {x: 30, yoyo: true, repeat: 1, duration: 0.15});
+        gsap.fromTo(rear_sight_low.position, { x: 80, yoyo: true, repeat: 1 }, {x: 110, yoyo: true, repeat: 1, duration: 0.15});
+        gsap.fromTo(indicator_low.position, { x: 100, yoyo: true, repeat: 1 }, {x: 130, yoyo: true, repeat: 1, duration: 0.15});
+        gsap.fromTo(object.rotation, { z: 0, yoyo: true, repeat: 1 }, {z: -0.15, yoyo: true, repeat: 1, duration: 0.15});
+        gsap.fromTo(bulletParts.rotation, { x: 0, yoyo: true, repeat: 1 }, {x:-0.15, yoyo: true, repeat: 1, duration: 0.15});
+        gsap.fromTo(bulletCase.position, { x: -5.650801371896957e-16, y: 0.01853053644299507}, {x:-85, y:15 , duration: 0.15});
+        //gsap.fromTo(bulletProjectile.position, { z: 2.2435128688812256, yoyo: true, repeat: 1 }, {z: 140, yoyo: true, repeat: 1, duration: 0.08});
+        // gsap.timeline()
+        //   .to(bulletProjectile.position, {z: 140})
+        //   .to(bulletProjectile.position, {z: 2.2435128688812256})
+        //   .to(bulletProjectile.scale, {x: 0}, "<")
+        //   .to(bulletProjectile.scale, {x: 1})
       }
     });
     //console.log(slide_low.scale.x);
@@ -79,7 +129,7 @@ camera.position.z = objToRender === "canik" ? 25 : 500;
 
 //Add lights to the scene, so we can actually see the 3D model
 const topLight = new THREE.DirectionalLight(0xffffff, 15); // (color, intensity)
-topLight.position.set(750, 2000, -5000); //top-left-ish
+topLight.position.set(0, 1000, 0); //top-left-ish
 topLight.castShadow = true;
 scene.add(topLight);
 
@@ -124,3 +174,13 @@ document.onmousemove = (e) => {
 
 //Start the 3D rendering
 animate();
+
+//BULLET LICENSE
+//Model Information:
+//* title:	Bullet 9 mm
+//* source:	https://sketchfab.com/3d-models/bullet-9-mm-4cc75b7ef1bc474392c319a47fd97348
+//* author:	Y2JHBK (https://sketchfab.com/Y2JHBK)
+//
+//Model License:
+//* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+//* requirements:	Author must be credited. Commercial use is allowed.
