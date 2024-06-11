@@ -28,10 +28,9 @@ header h1 {
   position: fixed;
   width: 0vw;
   height: 0vh;
-  /* background-color: rgba(255, 17, 0, 0.7); */
   box-shadow: 0 0 60px 30px #fff, 0 0 100px 5vw #fecf8d, 0 0 140px 65vw #db591b;
-  top: 30%;
-  left: 41%;
+  top: 26%;
+  left: 37%;
   transform: translate(-50%, -50%);
   opacity: 0;
 }

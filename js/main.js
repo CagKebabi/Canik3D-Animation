@@ -26,6 +26,12 @@ let bulletProjectile;
 let bulletCase;
 let bulletParts;
 let canik;
+let magazinePart1;
+let magazinePart2;
+let magazinePart3;
+let magazinePart4;
+let trigger1;
+let trigger2;
 let slide_low;
 let opticcut_low;
 let rear_sight_low;
@@ -66,7 +72,6 @@ loader.load(
     bulletParts.position.x = 0.5;
     bulletParts.position.y = 11.3;
     bulletParts.position.z = -8;
-    console.log(bulletProjectile);
   },
   function (xhr) {
     //While it is loading, log the progress
@@ -85,17 +90,54 @@ loader.load(
     //If the file is loaded, add it to the scene
     object = gltf.scene;
     canik = object.children[0].children[0].children[0].children;
-    slide_low = canik[15];
-    opticcut_low = canik[16];
-    rear_sight_low = canik[17];
-    indicator_low = canik[18];
+    magazinePart1 = canik[3]
+    magazinePart2 = canik[4]
+    magazinePart3 = canik[5]
+    magazinePart4 = canik[6]
+    trigger1 = canik[8]
+    trigger2 = canik[9]
+    slide_low = canik[15]
+    opticcut_low = canik[16]
+    rear_sight_low = canik[17]
+    indicator_low = canik[18]
     scene.add(object);
     object.rotation.y = -2;
+    magazinePart1.scale.set(0,0,0) 
+    magazinePart2.scale.set(0,0,0)
+    magazinePart3.scale.set(0,0,0)
+    magazinePart4.scale.set(0,0,0)
+    console.log(trigger1);
     //slide_low.position.x = 0;
+    gsap.timeline()
+      .to(camera.position, {
+        x:10,
+        y: -8,
+        z: -2,
+        duration: 4,
+        onUpdate: () => {camera.lookAt(0,0,0)}
+      })
+      .to(camera.position, {
+        x: -20.7,
+        y: 8.2,
+        z: 11,
+        duration: 3,
+        onUpdate: () => {camera.lookAt(0,0,0)}
+      })
+    
     document.addEventListener("keydown", function (e) {
       /* Change to keyCode */
       if (e.keyCode == 83) {
         play();
+        gsap.fromTo(
+          trigger1.rotation,
+          { y: 0, yoyo: true, repeat: 1 },
+          { y: -0.4, yoyo: true, repeat: 1, duration: 0.1 }
+        );
+        gsap.fromTo(
+          trigger2.rotation,
+          { y: 0, yoyo: true, repeat: 1 },
+          { y: -0.9, yoyo: true, repeat: 1, duration: 0.1 }
+        );
         gsap.fromTo(
           slide_low.position,
           { x: 0, yoyo: true, repeat: 1 },
@@ -172,22 +214,27 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 camera.position.z = objToRender === "canik" ? 25 : 500;
 
 //Add lights to the scene, so we can actually see the 3D model
-const topLight = new THREE.DirectionalLight(0xffffff, 15); // (color, intensity)
-topLight.position.set(0, 1000, 0); //top-left-ish
+const topLight = new THREE.DirectionalLight(0xffffff, 5); // (color, intensity)
+topLight.position.set(0, 2000, 0); //top-left-ish
 topLight.castShadow = true;
-scene.add(topLight);
+const leftLight = new THREE.DirectionalLight(0xffffff, 5); // (color, intensity)
+leftLight.position.set(0, 2500, -2900); //top-left-ish
+leftLight.castShadow = true;
+const rightLight = new THREE.DirectionalLight(0xffffff, 5); // (color, intensity)
+rightLight.position.set(0, 2500, 2900); //top-left-ish
+rightLight.castShadow = true;
+scene.add(topLight, leftLight, rightLight);
 
 const ambientLight = new THREE.AmbientLight(
   0x333333,
   objToRender === "canik" ? 5 : 1
 );
 scene.add(ambientLight);
-console.log(topLight.position);
 
 //This adds controls to the camera, so we can rotate / zoom it with the mouse
-if (objToRender === "canik") {
-  controls = new OrbitControls(camera, renderer.domElement);
-}
+// if (objToRender === "canik") {
+//   controls = new OrbitControls(camera, renderer.domElement);
+// }
 
 //Render the scene
 function animate() {
@@ -228,3 +275,7 @@ animate();
 //Model License:
 //* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 //* requirements:	Author must be credited. Commercial use is allowed.
+
+// window.addEventListener("click", () => {
+//   console.log(trigger1);
+// })
