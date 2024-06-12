@@ -255,16 +255,3 @@ document.onmousemove = (e) => {
 //Start the 3D rendering
 animate();
 
-//BULLET LICENSE
-//Model Information:
-//* title:	Bullet 9 mm
-//* source:	https://sketchfab.com/3d-models/bullet-9-mm-4cc75b7ef1bc474392c319a47fd97348
-//* author:	Y2JHBK (https://sketchfab.com/Y2JHBK)
-//
-//Model License:
-//* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
-//* requirements:	Author must be credited. Commercial use is allowed.
-
-// window.addEventListener("click", () => {
-//   console.log(trigger1);
-// })
