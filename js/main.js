@@ -62,8 +62,6 @@ loader.load(
     bulletProjectile = bullet.children[0].children[0].children[0].children[1];
     bulletCase = bullet.children[0].children[0].children[0].children[0];
     scene.add(bullet);
-    // bullet.position.z = 0.2
-    // bullet.position.y = 0.5
     bullet.scale.x = 0.05;
     bullet.scale.y = 0.05;
     bullet.scale.z = 0.05;
@@ -107,7 +105,6 @@ loader.load(
     magazinePart3.scale.set(0,0,0)
     magazinePart4.scale.set(0,0,0)
     console.log(trigger1);
-    //slide_low.position.x = 0;
     gsap.timeline()
       .to(camera.position, {
         x:10,
@@ -125,7 +122,6 @@ loader.load(
       })
     
     document.addEventListener("keydown", function (e) {
-      /* Change to keyCode */
       if (e.keyCode == 83) {
         play();
         gsap.fromTo(
@@ -183,15 +179,8 @@ loader.load(
           { z: 2.2435128688812256 },
           { z: 540, duration: 0.1 }
         );
-        //gsap.fromTo(bulletProjectile.position, { z: 2.2435128688812256, yoyo: true, repeat: 1 }, {z: 140, yoyo: true, repeat: 1, duration: 0.08});
-        // gsap.timeline()
-        //   .to(bulletProjectile.position, {z: 140})
-        //   .to(bulletProjectile.position, {z: 2.2435128688812256})
-        //   .to(bulletProjectile.scale, {x: 0}, "<")
-        //   .to(bulletProjectile.scale, {x: 1})
       }
     });
-    //console.log(slide_low.scale.x);
   },
   function (xhr) {
     //While it is loading, log the progress
@@ -242,11 +231,11 @@ function animate() {
   //Here we could add some code to update the scene, adding some automatic movement
 
   //Make the eye move
-  if (object && objToRender === "eye") {
-    //I've played with the constants here until it looked good
-    object.rotation.y = -3 + (mouseX / window.innerWidth) * 3;
-    object.rotation.x = -1.2 + (mouseY * 2.5) / window.innerHeight;
-  }
+  // if (object && objToRender === "eye") {
+  //   //I've played with the constants here until it looked good
+  //   object.rotation.y = -3 + (mouseX / window.innerWidth) * 3;
+  //   object.rotation.x = -1.2 + (mouseY * 2.5) / window.innerHeight;
+  // }
   renderer.render(scene, camera);
 }
 
